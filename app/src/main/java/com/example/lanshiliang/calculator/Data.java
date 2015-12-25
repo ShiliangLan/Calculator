@@ -21,7 +21,7 @@ public class Data {
         if (arrayList.isEmpty()){
             return 0;
         }
-        double result=0,a=1;
+        double result=0,a=1; //a用来记录正负
         if(arrayList.get(0)=='+'){
             arrayList.remove(0);
         }
@@ -29,12 +29,13 @@ public class Data {
             arrayList.remove(0);
             a=-1;
         }
+        if (arrayList.isEmpty()){  //remove之后重新判读是否为空
+            return 0;
+        }
         String[] s=this.toString().split("\\+|-|\\*|/");
         int flag=0;
         result=a* Double.parseDouble(s[flag]);
-
         for (char c:arrayList){
-            System.out.println(result);
             if(flag>s.length-2) break;
             switch (c){
                 case '+':
@@ -58,9 +59,12 @@ public class Data {
         }
         return result;
     }
-    public  void reMoveAll(){
+    public  void reMoveAll(){ //用来清空list
         arrayList.removeAll(arrayList);
     }
+    //添加元素，规则：1,为空的时候.变成0.
+    //                  2,为空的时候不能添加*/=
+    //                      3，不能添加两个-+*/.
     public boolean add(char c){
         if (arrayList.isEmpty()){
             if(c=='.') {
