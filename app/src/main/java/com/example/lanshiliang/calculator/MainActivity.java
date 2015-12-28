@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (v.getId()){
                     case 14:
                         textView.setText(String.valueOf(data.compute()));
-                        data.reMoveAll();
+                        //data.reMoveAll();
                         break;
                     default:
                         data.add(chars[v.getId()]);

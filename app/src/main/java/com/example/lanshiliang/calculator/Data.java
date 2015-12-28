@@ -20,10 +20,6 @@ public class Data {
         test.add('.');
     }
 
-    public void multiply(){
-
-    }
-
     public double compute(){
         if (arrayList.isEmpty()){
             return 0;
@@ -91,10 +87,15 @@ public class Data {
             }
 
         }
+        reMoveAll();;
+        String reSet=String.valueOf(result);
+        for(int i=0;i<reSet.length();i++){
+            arrayList.add(reSet.charAt(i));
+        }
         return result;
     }
     public  void reMoveAll(){ //用来清空list
-        arrayList.removeAll(arrayList);
+        arrayList.clear();
     }
     //添加元素，规则：1,为空的时候.变成0.
     //                  2,为空的时候不能添加*/=
@@ -105,7 +106,7 @@ public class Data {
                 arrayList.add('0');
                 arrayList.add('.');
             }
-             else if(c!='/'||c!='*'||c!='='){
+             else if(c!='/'&&c!='*'&&c!='='){
                 arrayList.add(c);
             }
             return true;
@@ -114,8 +115,26 @@ public class Data {
         if (test.contains(last)&&test.contains(c)){
             return false;
         }
-        arrayList.add(c);
-        return true;
+        int lastPoint=arrayList.lastIndexOf('.');
+        System.out.println(lastPoint);
+        if(lastPoint==-1){
+            arrayList.add(c);
+            return true;
+        }
+        if (c=='.'){
+            for (int i=lastPoint;i<arrayList.size()-1;i++){
+                System.out.println(arrayList.get(i)+" "+arrayList.size());
+                if (!Character.isDigit(arrayList.get(i+1))){
+                    arrayList.add(c);
+                    return true;
+                }
+            }
+        }
+        else {
+            arrayList.add(c);
+        }
+
+        return false;
     }
     @Override
     public String toString() {
